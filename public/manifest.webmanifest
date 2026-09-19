@@ -1,0 +1,19 @@
+{
+  "name": "Katsu R2 Manager",
+  "short_name": "Katsu R2",
+  "description": "Personal cloud storage pool built on Cloudflare R2 with a public download center and admin dashboard.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#04060d",
+  "theme_color": "#04060d",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

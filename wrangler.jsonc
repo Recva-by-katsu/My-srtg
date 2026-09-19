@@ -1,0 +1,45 @@
+{
+  // Cloudflare Workers configuration used when the project is deployed through
+  // the Cloudflare dashboard (Workers & Pages -> Create -> connect Git repo).
+  //
+  // Build command : npx opennextjs-cloudflare build
+  // Build output  : (leave empty - wrangler.jsonc points at .open-next)
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "katsu-r2-manager",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "katsu-r2-manager"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  },
+  "limits": {
+    // PBKDF2 password verification during admin login needs real CPU time.
+    // Free plan Workers are capped at 10ms per request: either raise this value
+    // (paid plan) or generate ADMIN_PASSWORD_HASH with fewer iterations.
+    "cpu_ms": 30000
+  },
+  "vars": {
+    "DATABASE_DRIVER": "d1",
+    "DOWNLOAD_MODE": "stream",
+    "PUBLIC_LISTING": "true",
+    "LOG_LEVEL": "info"
+    // "DATABASE_ID": "<d1-database-id>",
+    // "CLOUDFLARE_ACCOUNT_ID": "<account-id>",
+    // "APP_URL": "https://download.domain.com"
+  },
+  "send_metrics": false
+
+  // Secrets are set in the dashboard (Settings -> Variables and Secrets -> Secret):
+  //   ADMIN_PASSWORD_HASH, SESSION_SECRET, CREDENTIAL_ENCRYPTION_KEY,
+  //   CLOUDFLARE_API_TOKEN, ADMIN_USERNAME
+}
